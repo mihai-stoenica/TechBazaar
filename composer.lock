@@ -7881,8 +7881,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-01T13:56:01+00:00",
-            "published-time": "2026-04-01T14:03:34+00:00"
+            "time": "2026-04-01T13:56:01+00:00"
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
@@ -7968,8 +7967,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-03T16:05:42+00:00",
-            "published-time": "2025-12-03T16:14:01+00:00"
+            "time": "2025-12-03T16:05:42+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -10372,5 +10370,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.11.0"
+    "plugin-api-version": "2.9.0"
 }

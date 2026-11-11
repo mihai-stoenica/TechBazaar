@@ -4,31 +4,13 @@ namespace App\Fixtures;
 
 use App\Entity\Category;
 use App\Entity\Product;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Console\Attribute\AsCommand;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
 
-#[AsCommand(
-    name: 'app:seed-database',
-    description: 'Populates the database with initial categories and tech products.',
-)]
-class CatalogFixture extends Command
+class CatalogFixture extends Fixture
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function load(ObjectManager $manager): void
     {
-        parent::__construct(); // Command constructor takes no arguments or a string name
-        $this->entityManager = $entityManager;
-    }
-
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $io = new SymfonyStyle($input, $output);
-
         $categoriesData = ['Phones', 'Laptops', 'Accessories', 'Smart home', 'Audio'];
         $categories = [];
 
@@ -36,11 +18,11 @@ class CatalogFixture extends Command
             $category = new Category();
             $category->setName($catName);
             $category->setSlug(strtolower(str_replace(' ', '-', $catName)));
-            $this->entityManager->persist($category);
+            $manager->persist($category);
             $categories[$catName] = $category;
         }
 
-        $this->entityManager->flush();
+        $manager->flush();
 
         $productsData = [
             ['name' => 'Phone model A', 'price' => 1299.00, 'stock' => 10, 'category' => 'Phones'],
@@ -65,13 +47,9 @@ class CatalogFixture extends Command
             $product->setCategory($categories[$data['category']]);
             $product->setSpecs(['Brand' => 'TechBazaar Spec', 'Warranty' => '24 months']);
 
-            $this->entityManager->persist($product);
+            $manager->persist($product);
         }
 
-        $this->entityManager->flush();
-
-        $io->success('Database seeded successfully with categories and mock products!');
-
-        return Command::SUCCESS;
+        $manager->flush();
     }
 }
