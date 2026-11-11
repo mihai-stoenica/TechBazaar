@@ -1,1 +1,5 @@
-/* Application styles */
+@import "tailwindcss";
+
+body {
+    background-color: skyblue;
+}
