@@ -3,84 +3,101 @@
 {% block title %}TechBazaar &middot; Electronics & Gadgets{% endblock %}
 
 {% block body %}
-<div class="max-w-4xl mx-auto space-y-8">
+<div class="max-w-7xl mx-auto space-y-12">
     <!-- Hero Section -->
-    <div class="bg-white rounded-3xl border border-gray-200 p-8 sm:p-12 shadow-sm text-center">
-        <span class="text-5xl">⚡</span>
-        <h1 class="mt-4 text-4xl sm:text-5xl font-black text-gray-900 tracking-tight">
-            Welcome to <span class="text-blue-600">TechBazaar</span>
-        </h1>
-        <p class="mt-4 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-            Your premier online store for cutting-edge electronics and smart gadgets.
-        </p>
+    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 rounded-3xl text-white p-8 sm:p-16 shadow-xl">
+        <div class="relative z-10 max-w-2xl">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-400/30 mb-4">
+                ⚡ New Arrivals & Premium Gadgets
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+                Next-Gen Electronics for Everyone
+            </h1>
+            <p class="mt-4 text-base sm:text-lg text-slate-300">
+                Explore high-performance laptops, smartphones, premium audio, and smart devices built to power your day.
+            </p>
 
-        <div class="mt-8 flex justify-center flex-wrap gap-4">
-            {% if app.user %}
-                <div class="w-full bg-blue-50 border border-blue-200 rounded-2xl p-6 text-left">
-                    <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
-                        <div>
-                            <span class="text-xs uppercase tracking-wider text-blue-600 font-bold">Currently Signed In</span>
-                            <h2 class="text-xl font-bold text-gray-900">{{ app.user.userIdentifier }}</h2>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            {% for role in app.user.roles %}
-                                <span class="px-2.5 py-1 text-xs font-semibold rounded-full {% if role == 'ROLE_ADMIN' %}bg-amber-100 text-amber-800 border border-amber-300{% else %}bg-blue-100 text-blue-800 border border-blue-300{% endif %}">
-                                    {{ role }}
-                                </span>
-                            {% endfor %}
-                        </div>
-                    </div>
+            <div class="mt-8 flex flex-wrap gap-4 items-center">
+                {% if app.user %}
+                    <a href="{{ path('app_account_addresses') }}" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition flex items-center space-x-2">
+                        <span>📍</span>
+                        <span>My Delivery Addresses</span>
+                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_admin_index') }}" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-semibold shadow-md transition flex items-center space-x-2">
+                            <span>🛡️</span>
+                            <span>Admin Dashboard</span>
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ path('app_register') }}" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md transition">
+                        Create an Account
+                    </a>
+                    <a href="{{ path('app_login') }}" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold border border-white/20 transition">
+                        Sign In
+                    </a>
+                {% endif %}
+            </div>
+        </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <a href="{{ path('app_account_addresses') }}" class="flex items-center justify-center px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 shadow-sm transition">
-                            📍 Saved Addresses (A4)
-                        </a>
-                        <a href="{{ path('app_admin_index') }}" class="flex items-center justify-center px-4 py-2.5 bg-amber-500 border border-transparent rounded-xl text-sm font-semibold text-white hover:bg-amber-600 shadow-sm transition">
-                            🛡️ Open /admin (Demo 2)
-                        </a>
-                        <a href="{{ path('app_logout') }}" class="flex items-center justify-center px-4 py-2.5 bg-red-50 border border-red-200 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-100 transition">
-                            🚪 Sign Out
-                        </a>
-                    </div>
+        <!-- Decorative background glow -->
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    </div>
+
+    <!-- Value Propositions -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start space-x-4">
+            <span class="text-3xl">🚀</span>
+            <div>
+                <h3 class="font-bold text-gray-900 text-sm">Fast Delivery</h3>
+                <p class="text-xs text-gray-500 mt-1">Free express shipping on all orders over $99.</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start space-x-4">
+            <span class="text-3xl">🔒</span>
+            <div>
+                <h3 class="font-bold text-gray-900 text-sm">Secure Checkout</h3>
+                <p class="text-xs text-gray-500 mt-1">Encrypted payments powered by Stripe.</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start space-x-4">
+            <span class="text-3xl">🛡️</span>
+            <div>
+                <h3 class="font-bold text-gray-900 text-sm">Official Warranty</h3>
+                <p class="text-xs text-gray-500 mt-1">2-year manufacturer warranty on all electronics.</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-start space-x-4">
+            <span class="text-3xl">💬</span>
+            <div>
+                <h3 class="font-bold text-gray-900 text-sm">24/7 Support</h3>
+                <p class="text-xs text-gray-500 mt-1">Dedicated customer service team ready to assist.</p>
+            </div>
+        </div>
+    </div>
+
+    {% if app.user %}
+        <!-- Account Status Card -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 shadow-sm">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-gray-500 font-semibold">Account Overview</span>
+                    <h2 class="text-xl font-bold text-gray-900 mt-1">{{ app.user.userIdentifier }}</h2>
+                    <p class="text-sm text-gray-600 mt-1">Welcome back to your TechBazaar account.</p>
                 </div>
-            {% else %}
-                <a href="{{ path('app_login') }}" class="px-6 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 shadow-sm transition">
-                    Sign In
-                </a>
-                <a href="{{ path('app_register') }}" class="px-6 py-3 rounded-xl bg-white border border-gray-300 text-gray-800 font-semibold hover:bg-gray-50 shadow-sm transition">
-                    Register New Account
-                </a>
-                <a href="{{ path('app_admin_index') }}" class="px-6 py-3 rounded-xl bg-gray-100 border border-gray-300 text-gray-700 font-semibold hover:bg-gray-200 transition">
-                    Try /admin (Protected)
-                </a>
-            {% endif %}
-        </div>
-    </div>
-
-    <!-- Demo 2 Presentation Card -->
-    <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-6 sm:p-8 text-white shadow-lg">
-        <div class="flex items-center space-x-3 mb-4">
-            <span class="text-2xl">🎯</span>
-            <h2 class="text-xl font-bold">Demo 2 &middot; Login &amp; Security Demonstration Steps</h2>
-        </div>
-        <p class="text-slate-300 text-sm mb-6">
-            For Cristian's live presentation of requirement A4 (User Accounts &amp; Security):
-        </p>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4">
-                <span class="font-bold text-amber-400 block mb-1">Step 1 &middot; Customer Login</span>
-                <p class="text-slate-300">Log in with <code class="text-amber-300">customer@techbazaar.com</code> (<code class="text-amber-300">customer123</code>). Notice the user session and saved delivery address access.</p>
-            </div>
-            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4">
-                <span class="font-bold text-red-400 block mb-1">Step 2 &middot; Server Access Denied</span>
-                <p class="text-slate-300">Try navigating directly to <code class="text-red-300">/admin</code> as customer. Symfony throws <strong>403 Access Denied</strong>, proving server-side enforcement.</p>
-            </div>
-            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-4">
-                <span class="font-bold text-green-400 block mb-1">Step 3 &middot; Admin Access</span>
-                <p class="text-slate-300">Log in with <code class="text-green-300">admin@techbazaar.com</code> (<code class="text-green-300">admin123</code>). Access <code class="text-green-300">/admin</code> to view the dashboard.</p>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ path('app_account_addresses') }}" class="px-4 py-2 border border-gray-300 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 transition">
+                        Delivery Addresses
+                    </a>
+                    <a href="{{ path('app_logout') }}" class="px-4 py-2 bg-red-50 text-red-600 rounded-xl text-sm font-semibold hover:bg-red-100 transition">
+                        Sign Out
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 {% endblock %}
