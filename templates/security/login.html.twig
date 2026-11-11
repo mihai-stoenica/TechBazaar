@@ -58,11 +58,15 @@
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <div>
+                <div class="space-y-3">
                     <button type="submit"
                             class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-xl shadow-xs text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 transition">
                         Sign in
                     </button>
+                    <a href="{{ path('app_register') }}"
+                       class="w-full flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl shadow-xs text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 transition">
+                        Create an account
+                    </a>
                 </div>
             </form>
         </div>
