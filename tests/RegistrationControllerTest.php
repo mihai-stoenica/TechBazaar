@@ -69,7 +69,7 @@ class RegistrationControllerTest extends WebTestCase
         ]);
 
         self::assertResponseStatusCodeSame(422);
-        self::assertSelectorTextContains('form', 'Your password should be at least 6 characters');
+        self::assertSelectorTextContains('form[name="registration_form"]', 'Your password should be at least 6 characters');
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => 'shortpass@example.com']);
         self::assertNull($user);
@@ -94,6 +94,6 @@ class RegistrationControllerTest extends WebTestCase
         ]);
 
         self::assertResponseStatusCodeSame(422);
-        self::assertSelectorTextContains('form', 'There is already an account with this email address');
+        self::assertSelectorTextContains('form[name="registration_form"]', 'There is already an account with this email address');
     }
 }

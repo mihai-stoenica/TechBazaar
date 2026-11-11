@@ -1,88 +1,195 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Dashboard &middot; TechBazaar{% endblock %}
+{% block title %}TechBazaar &middot; Admin Panel{% endblock %}
+
+{% block header %}{% endblock %}
 
 {% block body %}
-<div class="max-w-7xl mx-auto space-y-8">
-    <!-- Header banner -->
-    <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-3xl p-6 sm:p-10 text-white shadow-md">
-        <div class="flex items-center justify-between flex-wrap gap-4">
+<div class="min-h-screen bg-slate-50 flex">
+    <aside class="w-64 bg-slate-900 text-white min-h-screen p-6 flex flex-col justify-between flex-shrink-0">
+        <div class="space-y-6">
             <div>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/30 mb-2">
-                    🛡️ Administrator
-                </span>
-                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Admin Dashboard</h1>
-                <p class="mt-1 text-slate-300 text-sm">
-                    Logged in as <strong>{{ user.userIdentifier }}</strong>
-                </p>
+                <a href="{{ path('app_admin_index') }}" class="text-xl font-bold tracking-tight text-white block">TechBazaar</a>
+                <span class="text-xs text-slate-400 font-medium tracking-wide">admin panel</span>
             </div>
-            <div class="flex items-center space-x-3">
-                <a href="{{ path('app_home') }}" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-semibold transition border border-white/20">
-                    Store Front
+
+            <nav class="space-y-1">
+                <a href="{{ path('app_admin_index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition">
+                    Dashboard
                 </a>
-                <a href="{{ path('app_logout') }}" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-semibold transition">
-                    Sign Out
+                <a href="{{ path('app_admin_index') }}" class="block px-3 py-2 rounded-lg text-sm font-semibold bg-amber-500 text-slate-900 shadow-sm transition">
+                    Products
+                </a>
+                <a href="{{ path('app_admin_index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition">
+                    Categories
+                </a>
+                <a href="{{ path('app_admin_index') }}" class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800 transition">
+                    Orders
+                </a>
+            </nav>
+        </div>
+
+        <div class="pt-6 border-t border-slate-800 space-y-3">
+            <p class="text-xs text-slate-400 truncate">
+                {{ user.userIdentifier }}
+            </p>
+            <div class="flex items-center justify-between">
+                <a href="{{ path('app_catalog') }}" class="text-xs text-slate-400 hover:text-white transition">
+                    &larr; Back to store
+                </a>
+                <a href="{{ path('app_logout') }}" class="text-xs text-rose-400 hover:text-rose-300 transition">
+                    Logout
                 </a>
             </div>
         </div>
-    </div>
+    </aside>
 
-    <!-- Admin Content Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Products & Categories Card -->
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center space-x-3 mb-4">
-                <span class="text-3xl">📦</span>
-                <div>
-                    <h2 class="text-lg font-bold text-gray-900">Catalog & Products</h2>
-                    <p class="text-xs text-gray-500">Categories and inventory</p>
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div class="max-w-7xl mx-auto space-y-6">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-slate-900">Admin Dashboard</h1>
+                <button type="button" class="bg-amber-500 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm hover:bg-amber-400 shadow-sm transition">
+                    + New product
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <div class="lg:col-span-2 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+                    <table class="w-full text-left text-sm text-slate-700">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                            <tr>
+                                <th class="px-4 py-3">Image</th>
+                                <th class="px-4 py-3">Name</th>
+                                <th class="px-4 py-3">Price</th>
+                                <th class="px-4 py-3">Stock</th>
+                                <th class="px-4 py-3 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="w-10 h-10 bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-xs text-slate-400">
+                                        [Img]
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-medium text-slate-900">Phone model A</td>
+                                <td class="px-4 py-3">1 999 RON</td>
+                                <td class="px-4 py-3">12</td>
+                                <td class="px-4 py-3 text-right space-x-2">
+                                    <button class="text-xs font-medium text-sky-600 hover:underline">Edit</button>
+                                    <button class="text-xs font-medium text-rose-600 hover:underline">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="w-10 h-10 bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-xs text-slate-400">
+                                        [Img]
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-medium text-slate-900">Phone model B</td>
+                                <td class="px-4 py-3">2 499 RON</td>
+                                <td class="px-4 py-3">5</td>
+                                <td class="px-4 py-3 text-right space-x-2">
+                                    <button class="text-xs font-medium text-sky-600 hover:underline">Edit</button>
+                                    <button class="text-xs font-medium text-rose-600 hover:underline">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="w-10 h-10 bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-xs text-slate-400">
+                                        [Img]
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-medium text-slate-900">USB-C cable</td>
+                                <td class="px-4 py-3">49 RON</td>
+                                <td class="px-4 py-3">120</td>
+                                <td class="px-4 py-3 text-right space-x-2">
+                                    <button class="text-xs font-medium text-sky-600 hover:underline">Edit</button>
+                                    <button class="text-xs font-medium text-rose-600 hover:underline">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="w-10 h-10 bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-xs text-slate-400">
+                                        [Img]
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-medium text-slate-900">Earbuds</td>
+                                <td class="px-4 py-3">299 RON</td>
+                                <td class="px-4 py-3 text-rose-600 font-semibold">0</td>
+                                <td class="px-4 py-3 text-right space-x-2">
+                                    <button class="text-xs font-medium text-sky-600 hover:underline">Edit</button>
+                                    <button class="text-xs font-medium text-rose-600 hover:underline">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    <div class="w-10 h-10 bg-slate-100 border border-slate-200 rounded flex items-center justify-center text-xs text-slate-400">
+                                        [Img]
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3 font-medium text-slate-900">Laptop 14"</td>
+                                <td class="px-4 py-3">3 899 RON</td>
+                                <td class="px-4 py-3">7</td>
+                                <td class="px-4 py-3 text-right space-x-2">
+                                    <button class="text-xs font-medium text-sky-600 hover:underline">Edit</button>
+                                    <button class="text-xs font-medium text-rose-600 hover:underline">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-xs space-y-4">
+                    <h2 class="text-base font-bold text-slate-900">Edit product</h2>
+
+                    <form action="#" method="POST" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Name</label>
+                            <input type="text" value="Phone model A" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Category</label>
+                            <select class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                                <option>Phones</option>
+                                <option>Laptops</option>
+                                <option>Accessories</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Price (RON)</label>
+                            <input type="number" step="0.01" value="1999.00" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Stock</label>
+                            <input type="number" value="12" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Description</label>
+                            <textarea rows="3" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">Premium smartphone with OLED display and advanced cameras.</textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Image</label>
+                            <input type="file" class="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200">
+                        </div>
+
+                        <div class="flex space-x-2 pt-2">
+                            <button type="submit" class="flex-1 bg-slate-900 text-white font-medium py-2 rounded-lg text-sm hover:bg-slate-800 transition">
+                                Save
+                            </button>
+                            <button type="button" class="px-4 py-2 border border-slate-300 text-slate-700 font-medium rounded-lg text-sm hover:bg-slate-50 transition">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <p class="text-sm text-gray-600 mb-6">
-                Manage product listings, pricing, descriptions, specifications, and category taxonomy.
-            </p>
-            <div class="flex gap-2">
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Products</span>
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Categories</span>
-            </div>
         </div>
-
-        <!-- Orders Card -->
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center space-x-3 mb-4">
-                <span class="text-3xl">🧾</span>
-                <div>
-                    <h2 class="text-lg font-bold text-gray-900">Orders & Fulfillment</h2>
-                    <p class="text-xs text-gray-500">Customer purchases</p>
-                </div>
-            </div>
-            <p class="text-sm text-gray-600 mb-6">
-                Review incoming orders, check payment status, and update shipment status transitions.
-            </p>
-            <div class="flex gap-2">
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Pending</span>
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Paid</span>
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Shipped</span>
-            </div>
-        </div>
-
-        <!-- Customers Card -->
-        <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition">
-            <div class="flex items-center space-x-3 mb-4">
-                <span class="text-3xl">👥</span>
-                <div>
-                    <h2 class="text-lg font-bold text-gray-900">User Accounts</h2>
-                    <p class="text-xs text-gray-500">Registered members</p>
-                </div>
-            </div>
-            <p class="text-sm text-gray-600 mb-6">
-                View registered customer profiles, security roles, and active accounts across the store.
-            </p>
-            <div class="flex gap-2">
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Customers</span>
-                <span class="px-3 py-1 text-xs font-semibold bg-gray-100 text-gray-700 rounded-lg">Roles</span>
-            </div>
-        </div>
-    </div>
+    </main>
 </div>
 {% endblock %}

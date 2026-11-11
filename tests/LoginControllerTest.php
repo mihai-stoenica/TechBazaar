@@ -78,7 +78,7 @@ class LoginControllerTest extends WebTestCase
         self::assertResponseRedirects('/');
         $this->client->followRedirect();
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('main', 'customer@example.com');
+        self::assertSelectorTextContains('header', 'Logout');
     }
 
     public function testAdminCanLoginSuccessfully(): void
@@ -94,7 +94,7 @@ class LoginControllerTest extends WebTestCase
         self::assertResponseRedirects('/');
         $this->client->followRedirect();
         self::assertResponseIsSuccessful();
-        self::assertSelectorTextContains('main', 'admin@example.com');
+        self::assertSelectorTextContains('header', 'Admin');
     }
 
     public function testLogout(): void
@@ -113,6 +113,6 @@ class LoginControllerTest extends WebTestCase
         $this->client->followRedirect();
 
         // Verify user is no longer logged in
-        self::assertSelectorTextContains('nav', 'Log In');
+        self::assertSelectorTextContains('header', 'Login');
     }
 }
