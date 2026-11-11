@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log In &middot; TechBazaar{% endblock %}
+
+{% block body %}
+<div class="min-h-[70vh] flex flex-col justify-center py-6 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
+        <span class="text-4xl">⚡</span>
+        <h2 class="mt-3 text-3xl font-extrabold text-gray-900 tracking-tight">Sign in to your account</h2>
+        <p class="mt-2 text-sm text-gray-600">
+            Or
+            <a href="{{ path('app_register') }}" class="font-medium text-blue-600 hover:text-blue-500">create a new account</a>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-6 shadow-sm border border-gray-200 rounded-2xl sm:px-10">
+            {% if error %}
+                <div class="mb-4 p-4 rounded-xl bg-red-50 border border-red-200 text-sm text-red-700 alert-danger" role="alert">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-4 p-4 rounded-xl bg-blue-50 border border-blue-200 text-sm text-blue-700">
+                    You are already logged in as <strong>{{ app.user.userIdentifier }}</strong>.
+                    <a href="{{ path('app_logout') }}" class="underline font-semibold ml-1">Log out</a>
+                </div>
+            {% endif %}
+
+            <form method="post" action="{{ path('app_login') }}" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Email address</label>
+                    <div class="mt-1">
+                        <input type="email"
+                               id="username"
+                               name="_username"
+                               value="{{ last_username }}"
+                               autocomplete="email"
+                               required
+                               autofocus
+                               placeholder="you@example.com"
+                               class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="mt-1">
+                        <input type="password"
+                               id="password"
+                               name="_password"
+                               autocomplete="current-password"
+                               required
+                               placeholder="••••••••"
+                               class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div>
+                    <button type="submit"
+                            class="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 pt-6 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                <p class="font-semibold text-gray-600">Demo Accounts:</p>
+                <p>Customer: <code class="bg-gray-100 px-1 py-0.5 rounded">customer@techbazaar.com</code> / <code class="bg-gray-100 px-1 py-0.5 rounded">customer123</code></p>
+                <p>Admin: <code class="bg-gray-100 px-1 py-0.5 rounded">admin@techbazaar.com</code> / <code class="bg-gray-100 px-1 py-0.5 rounded">admin123</code></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
